@@ -3,23 +3,26 @@ import { Button, StyleSheet, TextInput, View } from "react-native";
 import { FC, useState } from "react";
 
 export type LoginViewProps = {
-  onSubmit: (text: string) => void;
+  onSubmit?: () => void;
   placeholder?: string;
+  showSubmitButton?: boolean;
+  onChange?: (text: string) => void;
 };
 
-export const InputField: FC<LoginViewProps> = ({ onSubmit, placeholder }) => {
-  const [content, setContent] = useState("");
-
+export const InputField: FC<LoginViewProps> = ({
+  onSubmit,
+  placeholder,
+  showSubmitButton = true,
+  onChange,
+}) => {
   return (
     <View style={styles.section}>
       <TextInput
         style={styles.section__input}
         placeholder={placeholder}
-        onChangeText={setContent}
-        value={content}
+        onChangeText={onChange}
       />
-
-      <Button title="Submit" onPress={() => onSubmit(content)} />
+      {showSubmitButton && <Button title="Submit" onPress={onSubmit} />}
     </View>
   );
 };

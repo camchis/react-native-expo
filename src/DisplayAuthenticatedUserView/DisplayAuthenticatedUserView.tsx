@@ -57,6 +57,21 @@ export const DisplayAuthenticatedUserView: FC = () => {
               />
             </View>
           ))}
+          {wallets.userWallets.length === 0 && (
+            <View>
+              <Text style={styles.error}>No wallets found</Text>
+              <Button
+                title="Create wallet"
+                onPress={async () => {
+                  await client.wallets.embedded
+                    .createWallet()
+                    .catch((error) => {
+                      console.error(error);
+                    });
+                }}
+              />
+            </View>
+          )}
         </View>
       </View>
     </View>
